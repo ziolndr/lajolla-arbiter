@@ -4,11 +4,47 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>AGI — ARBITER</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <!-- system fonts -->
+  
+  <!-- system fonts -->
 
   <style>
+
+    .page-id {
+      padding: 40px 52px 32px;
+      display: flex;
+      align-items: baseline;
+      gap: 20px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .page-id-agi {
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: .32em;
+      text-transform: uppercase;
+      color: var(--ink);
+    }
+
+    .page-id-divider {
+      width: 1px;
+      height: 11px;
+      background: var(--line);
+      flex-shrink: 0;
+      position: relative;
+      top: 1px;
+    }
+
+    .page-id-loc {
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-weight: 300;
+      font-size: 13px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
     :root {
       --bg: #080a0c;
       --ink: #ece9e4;
@@ -16,9 +52,9 @@
       --line: rgba(238,241,247,.09);
       --accent: #ffffff;
       --accent2: rgba(238,241,247,.60);
-      --mono: "DM Mono", ui-monospace, monospace;
+      --mono: "Helvetica Neue", Helvetica, Arial, sans-serif;
       --sans: -apple-system, "Helvetica Neue", Helvetica, Arial, sans-serif;
-      --display: "Cormorant Garamond", Georgia, serif;
+      --display: "Helvetica Neue", Helvetica, Arial, sans-serif;
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -32,82 +68,9 @@
     }
 
     /* ─── NAV ─────────────────────────────────────────────────── */
-    nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 20px 48px;
-      border-bottom: 1px solid var(--line);
-      background: rgba(10,13,16,.94);
-      backdrop-filter: blur(16px);
-    }
-
-    .nav-logo {
-      font-family: var(--display);
-      font-weight: 400;
-      font-size: 19px;
-      letter-spacing: .08em;
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-      text-transform: uppercase;
-    }
-
-    
-
-    .nav-links {
-      display: flex;
-      gap: 36px;
-      list-style: none;
-    }
-
-    .nav-links a {
-      font-family: var(--mono);
-      font-size: 11px;
-      letter-spacing: .18em;
-      text-transform: uppercase;
-      color: var(--muted);
-      text-decoration: none;
-      transition: color .15s;
-    }
-    .nav-links a:hover { color: var(--ink); }
-
-    .nav-sub {
-      font-family: var(--mono);
-      font-size: 9px;
-      font-weight: 400;
-      letter-spacing: .18em;
-      text-transform: uppercase;
-      color: rgba(238,241,247,.32);
-      line-height: 1;
-    }
-
-    .nav-right {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .status-dot {
-      width: 8px; height: 8px;
-      border-radius: 50%;
-      background: var(--accent);
-      animation: hb 2s ease-in-out infinite;
-    }
     @keyframes hb {
       0%,100% { box-shadow: 0 0 0 0 rgba(255,255,255,.18); }
       50% { box-shadow: 0 0 0 8px rgba(255,255,255,0); }
-    }
-
-    .status-label {
-      font-family: var(--mono);
-      font-size: 11px;
-      letter-spacing: .14em;
-      text-transform: uppercase;
-      color: rgba(238,241,247,.55);
     }
 
     /* ─── HERO ────────────────────────────────────────────────── */
@@ -115,7 +78,7 @@
       min-height: 100vh;
       display: grid;
       grid-template-columns: 1fr 1fr;
-      padding-top: 61px;
+      padding-top: 0;
       position: relative;
       overflow: hidden;
     }
@@ -175,7 +138,7 @@
     }
 
     .eyebrow {
-      font-family: var(--mono);
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
       font-size: 11px;
       letter-spacing: .22em;
       text-transform: uppercase;
@@ -212,7 +175,7 @@
       flex-wrap: wrap;
     }
 
-    .btn-pri {
+    .btn-primary, .btn-pri {
       display: inline-flex;
       align-items: center;
       gap: 10px;
@@ -220,7 +183,7 @@
       border: 1px solid var(--ink);
       background: var(--ink);
       color: var(--bg);
-      font-family: var(--mono);
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
       font-size: 11px;
       letter-spacing: .16em;
       text-transform: uppercase;
@@ -228,7 +191,7 @@
       transition: background .15s, color .15s;
       text-decoration: none;
     }
-    .btn-pri:hover { background: transparent; color: var(--ink); }
+    .btn-primary:hover, .btn-pri:hover { background: transparent; color: var(--ink); }
 
     .btn-ghost {
       display: inline-flex;
@@ -238,7 +201,7 @@
       border: 1px solid var(--line);
       background: transparent;
       color: var(--muted);
-      font-family: var(--mono);
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
       font-size: 11px;
       letter-spacing: .16em;
       text-transform: uppercase;
@@ -254,7 +217,7 @@
       display: flex;
       align-items: center;
       gap: 14px;
-      font-family: var(--mono);
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
       font-size: 11px;
       letter-spacing: .16em;
       text-transform: uppercase;
@@ -287,7 +250,7 @@
     }
 
     .stat-label {
-      font-family: var(--mono);
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
       font-size: 10px;
       letter-spacing: .22em;
       text-transform: uppercase;
@@ -320,7 +283,7 @@
       background: #0e1216;
     }
     .endpoint-strip .lbl {
-      font-family: var(--mono);
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
       font-size: 10px;
       letter-spacing: .18em;
       text-transform: uppercase;
@@ -328,7 +291,7 @@
       margin-bottom: 8px;
     }
     .endpoint-strip code {
-      font-family: var(--mono);
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
       font-size: 12px;
       color: rgba(238,241,247,.48);
     }
@@ -345,7 +308,7 @@
 
     .sec-num {
       padding: 18px 48px;
-      font-family: var(--mono);
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
       font-size: 11px;
       letter-spacing: .22em;
       text-transform: uppercase;
@@ -355,7 +318,19 @@
       align-items: center;
     }
 
-    .sec-title {
+    .sec-eyebrow {
+      padding: 14px 48px 0;
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-size: 10px;
+      font-weight: 400;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--sub);
+      display: flex;
+      align-items: center;
+    }
+
+        .sec-title {
       padding: 18px 48px;
       font-family: var(--display);
       font-size: 22px;
@@ -391,7 +366,7 @@
 
     .field-label {
       display: block;
-      font-family: var(--mono);
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
       font-size: 10px;
       letter-spacing: .2em;
       text-transform: uppercase;
@@ -462,7 +437,7 @@
     }
 
     .r-header .lbl {
-      font-family: var(--mono);
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
       font-size: 10px;
       letter-spacing: .18em;
       text-transform: uppercase;
@@ -470,7 +445,7 @@
     }
 
     .pill {
-      font-family: var(--mono);
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
       font-size: 10px;
       letter-spacing: .16em;
       text-transform: uppercase;
@@ -494,7 +469,7 @@
       background: #090c0f;
     }
     .results-empty p {
-      font-family: var(--mono);
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
       font-size: 11px;
       letter-spacing: .16em;
       text-transform: uppercase;
@@ -520,7 +495,7 @@
     .r-item:hover { background: rgba(255,255,255,.02); border-left: 2px solid rgba(255,255,255,.14); margin-left: -1px; }
 
     .r-num {
-      font-family: var(--mono);
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
       font-size: 12px;
       color: rgba(238,241,247,.22);
       padding-top: 1px;
@@ -541,7 +516,7 @@
     }
 
     .r-score {
-      font-family: var(--mono);
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
       font-size: 13px;
       font-weight: 500;
       color: rgba(238,241,247,.88);
@@ -557,7 +532,7 @@
     }
 
     .top-lbl {
-      font-family: var(--mono);
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
       font-size: 10px;
       letter-spacing: .18em;
       text-transform: uppercase;
@@ -569,7 +544,7 @@
       font-family: var(--display);
       font-size: 24px;
       font-weight: 300;
-      font-style: italic;
+      font-style: normal;
       line-height: 1.2;
       min-height: 26px;
     }
@@ -602,7 +577,7 @@
     }
 
     .strip-btn {
-      font-family: var(--mono);
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
       font-size: 10px;
       letter-spacing: .16em;
       text-transform: uppercase;
@@ -639,7 +614,7 @@
     }
 
     .aux-badge {
-      font-family: var(--mono);
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
       font-size: 10px;
       letter-spacing: .16em;
       text-transform: uppercase;
@@ -666,7 +641,7 @@
     }
 
     .sig-score {
-      font-family: var(--mono);
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
       font-size: 12px;
       color: rgba(238,241,247,.55);
       white-space: nowrap;
@@ -686,7 +661,7 @@
     }
 
     .foot-left {
-      font-family: var(--mono);
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
       font-size: 10px;
       letter-spacing: .18em;
       text-transform: uppercase;
@@ -706,7 +681,7 @@
       background: rgba(8,12,16,.92);
       border: 1px solid var(--line);
       padding: 10px 20px;
-      font-family: var(--mono);
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
       font-size: 11px;
       letter-spacing: .14em;
       text-transform: uppercase;
@@ -719,8 +694,6 @@
 
     /* ─── RESPONSIVE ──────────────────────────────────────────── */
     @media (max-width: 900px) {
-      nav { padding: 16px 24px; }
-      .nav-links { display: none; }
       .hero { grid-template-columns: 1fr; }
       .hero-left { padding: 60px 24px 40px; border-right: none; border-bottom: 1px solid var(--line); }
       .hero-right { padding: 40px 24px; }
@@ -777,7 +750,7 @@
       background: #0a0d10;
       border: none;
       cursor: pointer;
-      font-family: var(--mono);
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
       font-size: 10px;
       letter-spacing: .16em;
       text-transform: uppercase;
@@ -806,7 +779,7 @@
     }
 
     .lyme-constraint-label {
-      font-family: var(--mono);
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
       font-size: 10px;
       letter-spacing: .2em;
       text-transform: uppercase;
@@ -849,7 +822,7 @@
     }
 
     .lyme-drug-cat {
-      font-family: var(--mono);
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
       font-size: 9px;
       letter-spacing: .14em;
       text-transform: uppercase;
@@ -863,12 +836,12 @@
       font-size: 11px;
       color: rgba(236,233,228,.42);
       line-height: 1.6;
-      font-style: italic;
+      font-style: normal;
       font-family: var(--display);
     }
 
     .lyme-drug-score {
-      font-family: var(--mono);
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
       font-size: 14px;
       color: rgba(236,233,228,.88);
       text-align: right;
@@ -876,7 +849,7 @@
     }
 
     .lyme-drug-rank {
-      font-family: var(--mono);
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
       font-size: 10px;
       color: rgba(236,233,228,.28);
       text-align: right;
@@ -900,7 +873,7 @@
     }
 
     .lyme-insight-label {
-      font-family: var(--mono);
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
       font-size: 10px;
       letter-spacing: .2em;
       text-transform: uppercase;
@@ -916,7 +889,7 @@
     }
 
     .lyme-loading {
-      font-family: var(--mono);
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
       font-size: 11px;
       letter-spacing: .12em;
       color: rgba(236,233,228,.36);
@@ -929,7 +902,7 @@
       padding: 48px 24px;
       text-align: center;
       color: rgba(236,233,228,.20);
-      font-family: var(--mono);
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
       font-size: 11px;
       letter-spacing: .14em;
     }
@@ -945,18 +918,13 @@
 <body>
 
   <!-- NAV -->
-  <nav>
-    <div class="nav-logo">AGI<span class="nav-sub">La Jolla</span></div>
-    <ul class="nav-links">
-      <li><a href="#console">Console</a></li>
-      <li><a href="#signals">Signals</a></li>
-      <li><a href="#audit">Audit</a></li>
-    </ul>
-    <div class="nav-right">
-      <div class="status-dot"></div>
-      <div class="status-label">ARBITER LIVE</div>
-    </div>
-  </nav>
+  
+
+  <header class="page-id">
+    <div class="page-id-agi">AGI</div>
+    <div class="page-id-divider"></div>
+    <div class="page-id-loc">La Jolla</div>
+  </header>
 
   <!-- HERO -->
   <section class="hero">
@@ -1773,7 +1741,7 @@ IDENTIFY PRIMARY MECHANISM: Copper/zinc chelation disrupting metalloenzymes, mem
           ${results.map(r => `
             <div class="r-item ${r.rank === 1 ? 'r-top' : ''}">
               <span class="r-num">0${r.rank < 10 ? r.rank : r.rank}</span>
-              <span class="r-action">${r.name} <span style="font-family:var(--mono);font-size:10px;opacity:.4;letter-spacing:.1em;">${r.category.toUpperCase()}</span></span>
+              <span class="r-action">${r.name} <span style="font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;font-size:10px;opacity:.4;letter-spacing:.1em;">${r.category.toUpperCase()}</span></span>
               <span class="r-score">${r.score.toFixed(4)}</span>
             </div>
           `).join('')}
