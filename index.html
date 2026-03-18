@@ -1145,6 +1145,131 @@ Hold position and monitor"></textarea>
       });
     }
 
+
+    // ── scenarios ─────────────────────────────────────────────────
+
+    const SCENARIOS = {
+      wildfire: {
+        perspective: "Emergency Management",
+        query: `Location: San Diego
+Active condition: Fire Weather Watch
+Wind: Santa Ana gusts 40-60mph
+Relative humidity: 8%
+Assets: 2 engines available, ladder truck 30min ETA
+Constraint: overtime cap active this week
+Critical infrastructure: water pumping station on canyon rim
+Risk: primary evacuation route partially blocked by vehicle accident
+Comms: intermittent cellular in lower canyon
+At-risk population: 400 residents in canyon zone`,
+        candidates: [
+          "Activate evacuation advisory for canyon zone residents",
+          "Deploy engine to protect water pumping station",
+          "Close canyon roads and establish alternate evacuation route",
+          "Issue public comms update via emergency SMS and radio",
+          "Request mutual aid pre-staging from adjacent districts",
+          "Hold position and continue monitoring",
+          "Establish unified command with Cal Fire and SDFD",
+        ],
+      },
+      water: {
+        perspective: "Water & Utilities",
+        query: `Condition: Stage 2 water shortage declared
+Reservoir capacity: 34%
+90-day forecast: no significant precipitation
+Current usage: 18% above conservation target
+Service connections: 47,000
+Infrastructure: aging distribution mains in coastal zone`,
+        candidates: [
+          "Mandate 25% usage reduction for all non-essential accounts",
+          "Suspend outdoor irrigation permits city-wide",
+          "Accelerate recycled water infrastructure deployment",
+          "Issue tiered penalty pricing for above-threshold consumption",
+          "Negotiate emergency import allocation from regional water authority",
+          "Launch public awareness campaign with real-time usage dashboards",
+        ],
+      },
+      budget: {
+        perspective: "Budget & Procurement",
+        query: `Condition: Mid-year budget shortfall identified
+Deficit: $2.4M against approved budget
+Revenue: property tax collections tracking 6% below projection
+Constraint: union contracts lock labor costs through Q4
+Priority: maintain core public safety staffing levels
+Deadline: revised plan requires council approval within 21 days`,
+        candidates: [
+          "Freeze all discretionary spending and non-essential contracts",
+          "Defer capital maintenance projects to next fiscal year",
+          "Propose temporary service-level reduction in non-critical departments",
+          "Initiate emergency renegotiation on top 5 vendor contracts",
+          "Request emergency reserve drawdown with council approval",
+          "Implement hiring freeze on all non-public-safety positions",
+        ],
+      },
+      storm: {
+        perspective: "Water & Utilities",
+        query: `Condition: Storm drain overflow event in progress
+Rainfall: 1.8 inches in 3 hours, exceeding 10-year capacity
+Affected areas: Prospect St and Coast Blvd corridors
+Risk: seawater intrusion into storm drain network
+Infrastructure: 3 pump stations at 95% capacity
+Health concern: untreated overflow reaching La Jolla Cove`,
+        candidates: [
+          "Issue beach closure advisory for La Jolla Cove and adjacent areas",
+          "Activate emergency pump deployment to relieve Station 2",
+          "Coordinate with county health on water quality testing protocol",
+          "Alert downstream neighborhoods of potential localized flooding",
+          "Open secondary retention basin at Torrey Pines spillway",
+          "Deploy sandbag crews to Prospect St critical flow points",
+        ],
+      },
+    };
+
+    function loadScenario() {
+      const key = els.scenario.value;
+      if (!key || !SCENARIOS[key]) { toast("Select a scenario first."); return; }
+      const s = SCENARIOS[key];
+      if (s.perspective) els.perspective.value = s.perspective;
+      els.query.value      = s.query;
+      els.candidates.value = s.candidates.join("\n");
+      toast("Scenario loaded.");
+    }
+
+    // ── export / copy ─────────────────────────────────────────────
+
+    function exportJson() {
+      if (!lastPayload) { toast("Nothing to export yet."); return; }
+      const out = { request: lastPayload, response: lastRaw, timestamp: new Date().toISOString() };
+      const blob = new Blob([JSON.stringify(out,null,2)],{type:"application/json"});
+      const url  = URL.createObjectURL(blob);
+      const a    = document.createElement("a");
+      a.href = url; a.download = `lajolla-arbiter-${Date.now()}.json`;
+      document.body.appendChild(a); a.click(); a.remove();
+      URL.revokeObjectURL(url);
+    }
+
+    async function copyPayload() {
+      if (!lastPayload) { toast("Nothing to copy yet."); return; }
+      await navigator.clipboard.writeText(JSON.stringify(lastPayload,null,2));
+      toast("Payload copied.");
+    }
+
+    // ── wire ──────────────────────────────────────────────────────
+
+    Q("btnRank").addEventListener("click", runRank);
+    Q("btnLoad").addEventListener("click", loadScenario);
+    Q("scenario").addEventListener("change", () => { if (els.scenario.value) loadScenario(); });
+    Q("btnClear").addEventListener("click", () => {
+      els.query.value = ""; els.candidates.value = "";
+      Q("resultList")?.remove();
+      els.emptyState.style.display = "flex";
+      els.topAction.textContent = "—";
+      els.notes.textContent = "Cleared.";
+      hideErr(); setPill("idle");
+      toast("Cleared.");
+    });
+    Q("btnExport").addEventListener("click", exportJson);
+    Q("btnCopy").addEventListener("click", copyPayload);
+
     renderAudit();
   </script>
 </body>
